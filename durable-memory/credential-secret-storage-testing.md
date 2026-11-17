@@ -35,15 +35,17 @@ pnpm agent:test --filter n8n --script test:sqlite -- test/integration/credential
 The direct package command is equivalent.
 
 ```sh
-pnpm --filter=n8n test:sqlite -- test/integration/credentials/credential-secret-storage.test.ts --maxWorkers=1
+pnpm --filter=n8n test:sqlite test/integration/credentials/credential-secret-storage.test.ts --maxWorkers=1
 ```
+
+Do not insert a separate -- argument before the test path in these direct pnpm commands. With pnpm 12, that argument reaches Vitest and the focused file selection does not occur.
 
 ## PostgreSQL run
 
 The PostgreSQL configuration uses Testcontainers. It starts PostgreSQL and Redis. Docker must be available. The primary PostgreSQL image comes from [postgres-versions.json](../packages/quality/environments/containers/postgres-versions.json).
 
 ```sh
-TEST_IMAGE_POSTGRES=postgres:18.4-alpine pnpm --filter=n8n test:postgres:integration:tc -- test/integration/credentials/credential-secret-storage.test.ts --maxWorkers=1
+TEST_IMAGE_POSTGRES=postgres:18.4-alpine pnpm --filter=n8n test:postgres:integration:tc test/integration/credentials/credential-secret-storage.test.ts --maxWorkers=1
 ```
 
 The dedicated Actions workflow runs SQLite and PostgreSQL as separate jobs. It requests only contents read permission. It does not use repository secrets, deployment credentials, connector services, or pull_request_target.
@@ -53,19 +55,19 @@ The dedicated Actions workflow runs SQLite and PostgreSQL as separate jobs. It r
 Run these suites when changing shared credential behavior rather than only adding the focused contract.
 
 ```sh
-pnpm --filter=n8n test:sqlite -- test/integration/credentials/credentials.api.test.ts test/integration/credentials/credentials.api.ee.test.ts test/integration/public-api/credentials.test.ts --maxWorkers=1
+pnpm --filter=n8n test:sqlite test/integration/credentials/credentials.api.test.ts test/integration/credentials/credentials.api.ee.test.ts test/integration/public-api/credentials.test.ts --maxWorkers=1
 ```
 
 Run the core tests when changing cipher or credential serialization code.
 
 ```sh
-pnpm --filter=n8n-core test -- src/__tests__/credentials.test.ts src/encryption/__tests__/cipher.test.ts --maxWorkers=1
+pnpm --filter=n8n-core test src/__tests__/credentials.test.ts src/encryption/__tests__/cipher.test.ts --maxWorkers=1
 ```
 
 Run key-store integration tests when changing rotation or bootstrap code.
 
 ```sh
-pnpm --filter=n8n test:sqlite -- src/encryption/__tests__/encryption-bootstrap.service.integration.test.ts src/encryption/__tests__/key-rotation-cycle.integration.test.ts --maxWorkers=1
+pnpm --filter=n8n test:sqlite src/encryption/__tests__/encryption-bootstrap.service.integration.test.ts src/encryption/__tests__/key-rotation-cycle.integration.test.ts --maxWorkers=1
 ```
 
 ## Mock decision
