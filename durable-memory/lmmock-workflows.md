@@ -39,7 +39,7 @@ pnpm test:lmmock
 
 Use pnpm 12 without a separate -- argument before Vitest file paths. The runner uses direct package commands with explicit paths.
 
-The runner supports Linux and macOS on x64 and arm64. It downloads lmmock v0.1.117 and lmctl 0.2.482. It verifies the release manifest, binary, and examples archive against [lmmock.lock](../scripts/lmmock/lmmock.lock). The cache and compiler package store stay under the ignored .build directory.
+The runner supports Linux and macOS on x64 and arm64. It downloads lmmock v0.1.117 and lmctl 0.2.480. It verifies the release manifest, binary, and examples archive against [lmmock.lock](../scripts/lmmock/lmmock.lock). The cache and compiler package store stay under the ignored .build directory.
 
 Set LMMOCK_CACHE to use a different test-owned cache. Do not put credentials in that directory. The fixtures use only synthetic values.
 
