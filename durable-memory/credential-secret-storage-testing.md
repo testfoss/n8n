@@ -74,7 +74,7 @@ pnpm --filter=n8n test:sqlite src/encryption/__tests__/encryption-bootstrap.serv
 
 lmctl-ai/lmmock is not needed for this storage suite. No LLM or connector HTTP request occurs. The existing global test setup blocks external HTTP except loopback. The real database and cipher provide more useful evidence than a storage mock.
 
-Use lmmock later only when an example executes a connector or LLM request. Keep that external protocol test separate from the credential persistence contract.
+The [lmmock workflow suite](lmmock-workflows.md) covers real connector and LLM requests. Keep those protocol tests separate from this credential persistence contract.
 
 ## Durable-memory checks
 
@@ -96,6 +96,6 @@ Validation on 2026-11-17 produced these results.
 - pnpm --filter=n8n typecheck: passed.
 - Focused oxlint with type awareness: passed.
 - pnpm check:memory: passed.
-- The PostgreSQL Testcontainers leg: pending the dedicated GitHub Actions result.
+- [Focused GitHub Actions run](https://github.com/lmctl-ai/n8n/actions/runs/44199514758): passed for SQLite, PostgreSQL, and durable memory.
 
 Record later results with the command, database, and result. Do not record machine-local paths or credentials.

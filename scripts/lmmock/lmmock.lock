@@ -1,0 +1,10 @@
+# lmmock release and compiler used by scripts/lmmock/run-workflows.sh.
+version=v0.1.117
+compiler=0.2.482
+sha256.SHA256SUMS=051ef3166063672b0540bfa62adcd48e33a534832542785da2b5984fcc61fda6
+sha256.examples.tar.gz=71353dcf5bba61e3158754994e96d9c71bea5b8873becd20cbafe8b8b417b70d
+sha256.lmmock-linux-arm64=29f59f7e32bf27d1a728b900dc928ebc1b1eab35e8d0a21356fee4a071f753a5
+sha256.lmmock-linux-x64=9a3ad7ce0dbd70fdd2040eb98113b913cc06133f2ebce149ce76bb54354d8195
+sha256.lmmock-macos-arm64=0f1b62475c65a02a93147ef48b97f77cc350621751e52932484b777c785984c8
+sha256.lmmock-macos-x64=97d6c846c8f86c0ecbad862c990c0506588191535d75a73b2d06c8ed97f01c1a
+sha256.lmmock-windows-x64.exe=82875448bd63a4af50fa282647735ae366383b489dc47cf54299b9ba9b28e561

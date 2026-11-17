@@ -1,0 +1,80 @@
+{
+	"name": "Telegram workflow with lmmock",
+	"nodes": [
+		{
+			"parameters": {},
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0],
+			"id": "lmmock-trigger",
+			"name": "Manual Trigger"
+		},
+		{
+			"parameters": {
+				"resource": "message",
+				"operation": "sendMessage",
+				"chatId": "987654321",
+				"text": "hello from lmmock",
+				"additionalFields": {
+					"appendAttribution": false
+				}
+			},
+			"type": "n8n-nodes-base.telegram",
+			"typeVersion": 1.2,
+			"position": [220, 0],
+			"id": "lmmock-send-message",
+			"name": "Send Message",
+			"credentials": {
+				"telegramApi": {
+					"id": "lmmock-telegram",
+					"name": "Telegram lmmock"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "chat",
+				"operation": "get",
+				"chatId": "={{ $json.result.chat.id }}"
+			},
+			"type": "n8n-nodes-base.telegram",
+			"typeVersion": 1.2,
+			"position": [440, 0],
+			"id": "lmmock-get-chat",
+			"name": "Get Chat",
+			"credentials": {
+				"telegramApi": {
+					"id": "lmmock-telegram",
+					"name": "Telegram lmmock"
+				}
+			}
+		}
+	],
+	"connections": {
+		"Manual Trigger": {
+			"main": [
+				[
+					{
+						"node": "Send Message",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Send Message": {
+			"main": [
+				[
+					{
+						"node": "Get Chat",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	}
+}

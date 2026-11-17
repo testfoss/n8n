@@ -188,6 +188,7 @@ These only run if specific files changed:
 | `packages/@n8n/instance-ai/src/**`, `packages/@n8n/instance-ai/skills/**`, `packages/@n8n/instance-ai/knowledge-base/**`, `packages/@n8n/instance-ai/evaluations/**`, `packages/cli/src/modules/instance-ai/**`, `packages/core/src/execution-engine/eval-mock-helpers.ts`, `packages/@n8n/agents/src/**` | `ci-instance-ai-evals.yml` | on PR `opened` / `reopened` / `ready_for_review` |
 | `docker/get-n8n.sh`, `docker/get-n8n-compose.yml`, `docker/test-get-n8n.sh` | `test-get-n8n.yml`          | any        |
 | `durable-memory/**`, `scripts/memory/**`, and the focused credential storage paths | `test-credential-secret-storage.yml` | master push; any PR |
+| `scripts/lmmock/**` and the Telegram, AI Agent, and OpenAI chat model paths | `test-lmmock-workflows.yml` | master push; any PR |
 
 ### On PR Review
 

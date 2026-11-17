@@ -1,0 +1,46 @@
+name: 'Test: Workflows with lmmock'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/test-lmmock-workflows.yml'
+      - 'scripts/lmmock/**'
+      - 'packages/nodes-base/nodes/Telegram/**'
+      - 'packages/@n8n/nodes-langchain/nodes/agents/Agent/**'
+      - 'packages/@n8n/nodes-langchain/nodes/llms/LMChatOpenAi/**'
+      - 'durable-memory/lmmock-workflows.md'
+      - 'package.json'
+  pull_request:
+    paths:
+      - '.github/workflows/test-lmmock-workflows.yml'
+      - 'scripts/lmmock/**'
+      - 'packages/nodes-base/nodes/Telegram/**'
+      - 'packages/@n8n/nodes-langchain/nodes/agents/Agent/**'
+      - 'packages/@n8n/nodes-langchain/nodes/llms/LMChatOpenAi/**'
+      - 'durable-memory/lmmock-workflows.md'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  workflows:
+    name: Telegram and AI Agent workflows
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup and build
+        uses: ./.github/actions/setup-nodejs
+
+      - name: Run workflows against lmmock
+        run: pnpm test:lmmock
