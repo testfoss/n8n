@@ -61,4 +61,4 @@ Jira and other presets with existing n8n custom-endpoint fields are candidates f
 
 On 2026-11-17, pnpm test:lmmock passed locally with the pinned lmmock release. Both workflow tests passed. The same tests skipped cleanly when LMMOCK_URL was absent.
 
-Record the dedicated Actions result after publication. Keep machine-local paths and credentials out of this chapter.
+[GitHub Actions run 44202977993](https://github.com/lmctl-ai/n8n/actions/runs/44202977993) passed with the same release pins. Keep machine-local paths and credentials out of this chapter.
