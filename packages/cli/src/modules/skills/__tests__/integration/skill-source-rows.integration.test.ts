@@ -18,7 +18,6 @@ import { DataSource } from '@n8n/typeorm';
 import nock from 'nock';
 import { randomUUID } from 'node:crypto';
 
-import { AgentRepository } from '@/modules/agents/repositories/agent.repository';
 import { AgentSkillRepository } from '@/modules/agents/repositories/agent-skill.repository';
 import { createSkill, deleteAllSkills } from '../../testing';
 import { SkillSourceConnection } from '../../database/entities/skill-source-connection.entity';
@@ -26,6 +25,7 @@ import { SkillSourceLink } from '../../database/entities/skill-source-link.entit
 import { SkillSyncService } from '../../services/skill-sync.service';
 import { FakeGitHub } from '../test-utils/fake-github';
 
+import { createAgent } from '@test-integration/db/agents';
 import { createMember, createOwner } from '@test-integration/db/users';
 import type { SuperAgentTest } from '@test-integration/types';
 import { setupTestServer } from '@test-integration/utils';
@@ -366,17 +366,14 @@ describe('Sources in the skills table', () => {
 			const alpha = await connect('acme/alpha');
 			const zeta = await connect('acme/zeta');
 			const { data } = await list(editor, { search: 'a1' });
-			const agents = Container.get(AgentRepository);
-			const agent = await agents.save(
-				agents.create({
-					id: randomUUID(),
-					name: 'Support bot',
-					projectId: team.id,
-					integrations: [],
-					tools: {},
-					versionId: randomUUID(),
-				}),
-			);
+			const agent = await createAgent({
+				id: randomUUID(),
+				name: 'Support bot',
+				projectId: team.id,
+				integrations: [],
+				tools: {},
+				versionId: randomUUID(),
+			});
 			await Container.get(AgentSkillRepository).replaceDependencies(agent.id, [
 				{ skillId: data[0].id },
 			]);
